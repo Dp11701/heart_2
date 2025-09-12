@@ -8,6 +8,7 @@ import { TextInputView } from "../Molecules/TextInputView";
 import { BMIResult } from "../Molecules/BMIResult";
 import ContinueButton from "../ContinueButton";
 import { SwitcherView } from "../Molecules/SwitcherView";
+import { TextInput } from "../Molecules/TextInput";
 
 export interface SelectWeightScreenProps {
   config: SelectInputValueSchema;
@@ -112,7 +113,7 @@ export function SelectWeightScreen(
 
         <div style={{ height: 26 }}></div>
 
-        <TextInputView
+        {/* <TextInputView
           unit={unit}
           min={minValue}
           ideal={idealValue}
@@ -124,6 +125,15 @@ export function SelectWeightScreen(
           }}
           useRulerPicker={true}
           pickerOrientation="horizontal"
+        /> */}
+        <TextInput
+          placeholder={idealValue.toString()}
+          unit={unit}
+          value={inputValue}
+          setValue={(newValue: string) => {
+            setInputValue(newValue);
+            checkValid(newValue, minValue, maxValue);
+          }}
         />
 
         <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center justify-center w-[80%] h-[30vh] mt-10 gap-8 mb-10">

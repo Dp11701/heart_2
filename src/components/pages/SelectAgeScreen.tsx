@@ -6,6 +6,7 @@ import ContinueButton from "@/components/ContinueButton";
 import { TextInputView } from "@/components/Molecules/TextInputView";
 import { SelectInputValueSchema } from "@/components/models/WelcomeConfig";
 import { ValueConfigItem } from "../models/ValueConfig";
+import { TextInput } from "../Molecules/TextInput";
 
 export interface SelectAgeScreenProps {
   config: SelectInputValueSchema;
@@ -52,11 +53,11 @@ function SelectAgeScreen(props: SelectAgeScreenProps): JSX.Element {
       }}
       className="justify-between items-center pb-4 overflow-x-hidden overflow-y-hidden"
     >
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center h-full w-full">
         <span className="title-text">{props.config.title}</span>
         <IdealView text={props.config.description || ""} />
 
-        <TextInputView
+        {/* <TextInputView
           min={minValue}
           ideal={idealValue}
           max={maxValue}
@@ -69,7 +70,18 @@ function SelectAgeScreen(props: SelectAgeScreenProps): JSX.Element {
           }}
           useWheelPicker={true}
           unit="Years"
-        />
+        /> */}
+        <div className="flex flex-col h-[300px] w-full items-center justify-center">
+          <TextInput
+            placeholder={idealValue.toString()}
+            unit="Years"
+            value={inputValue}
+            setValue={(newValue: string) => {
+              setInputValue(newValue);
+              checkValid(newValue, minValue, maxValue);
+            }}
+          />
+        </div>
       </div>
 
       <ContinueButton
