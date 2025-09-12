@@ -107,9 +107,9 @@ export function FinalSuccessPaymentCancelScreen() {
           >
             {config.step1}
           </span>
-          <QRCode value={process.env.REACT_APP_APP_LINK || ""} size={100} />
+          <QRCode value={process.env.NEXT_PUBLIC_APP_LINK || ""} size={100} />
           <a
-            href={process.env.REACT_APP_APP_LINK}
+            href={process.env.NEXT_PUBLIC_APP_LINK}
             onClick={() => {
               FirebaseUtils.trackingPayment("_click");
             }}

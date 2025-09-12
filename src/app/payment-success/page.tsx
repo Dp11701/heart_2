@@ -69,7 +69,7 @@ export default function PaymentSuccess() {
 
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_TECH_URL}/api/v1/auth/register`,
+        `${process.env.NEXT_PUBLIC_TECH_URL}/api/v1/auth/register`,
         {
           method: "POST",
           headers: {

@@ -42,7 +42,7 @@ export class Utils {
       "default";
     try {
       const rp = await fetch(
-        `${process.env.PUBLIC_URL}/configs/${lang}/welcome.json`
+        `${process.env.NEXT_PUBLIC_PUBLIC_URL}/configs/${lang}/welcome.json`
       );
       return WelcomeConfig.parse(await rp.json());
     } catch (e) {
@@ -59,7 +59,7 @@ export class Utils {
       "default";
     try {
       const rp = await fetch(
-        `${process.env.PUBLIC_URL}/configs/${lang}/value_config.json`
+        `${process.env.NEXT_PUBLIC_PUBLIC_URL}/configs/${lang}/value_config.json`
       );
       return ValueConfig.parse(await rp.json());
     } catch (e) {
@@ -76,7 +76,7 @@ export class Utils {
       "default";
     try {
       const rp = await fetch(
-        `${process.env.PUBLIC_URL}/configs/${lang}/result.json`
+        `${process.env.NEXT_PUBLIC_PUBLIC_URL}/configs/${lang}/result.json`
       );
       return ResultSuccessConfig.parse(await rp.json());
     } catch (e) {
@@ -93,7 +93,7 @@ export class Utils {
       "default";
     try {
       const rp = await fetch(
-        `${process.env.PUBLIC_URL}/configs/${lang}/iap.json`
+        `${process.env.NEXT_PUBLIC_PUBLIC_URL}/configs/${lang}/iap.json`
       );
       return IAPConfig.parse(await rp.json());
     } catch (e) {

@@ -42,7 +42,7 @@ export function FinalSuccessScreen() {
     localStorage.removeItem("sessionId");
     try {
       await fetch(
-        `${process.env.REACT_APP_TECH_URL}/api/v1/user/update/${sessionId}`,
+        `${process.env.NEXT_PUBLIC_TECH_URL}/api/v1/user/update/${sessionId}`,
         {
           method: "PATCH",
           headers: {
@@ -135,9 +135,9 @@ export function FinalSuccessScreen() {
           >
             {config.step1}
           </span>
-          <QRCode value={process.env.REACT_APP_APP_LINK || ""} size={100} />
+          <QRCode value={process.env.NEXT_PUBLIC_APP_LINK || ""} size={100} />
           <a
-            href={process.env.REACT_APP_APP_LINK}
+            href={process.env.NEXT_PUBLIC_APP_LINK}
             onClick={() => {
               FirebaseUtils.trackingPayment("go_store");
             }}

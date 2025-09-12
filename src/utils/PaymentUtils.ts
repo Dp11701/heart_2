@@ -1,6 +1,6 @@
 export class PaymentUtils {
   static async hmacSignature() {
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
     const timestamp = new Date().getTime() / 1000;
     const payload = {
       timestamp: timestamp,
@@ -14,7 +14,7 @@ export class PaymentUtils {
         trial: {
           days: 3,
         },
-        return_url: `${process.env.REACT_APP_WEB_PAGE_URL}/payment-result`,
+        return_url: `${process.env.NEXT_PUBLIC_WEB_PAGE_URL}/payment-result`,
       },
     };
 
@@ -34,7 +34,7 @@ export class PaymentUtils {
   }
 
   static async checkOut() {
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
     const { signature, timestamp, payload } = await this.hmacSignature();
     if (!signature) {
       console.error("Failed to get HMAC signature");
