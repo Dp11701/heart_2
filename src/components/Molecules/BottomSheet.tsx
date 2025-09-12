@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { Transition } from "@mantine/core";
+import { motion } from "framer-motion";
 import { twMerge } from "tailwind-merge";
 
 interface BottomSheetProps {
@@ -23,57 +23,183 @@ export function BottomSheet({
 }: BottomSheetProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [dragStartY, setDragStartY] = useState(0);
-  const [dragStartHeight, setDragStartHeight] = useState(0);
+  const [dragDeltaY, setDragDeltaY] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   const sheetRef = useRef<HTMLDivElement>(null);
+  const handleRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const startedExpandedRef = useRef<boolean>(false);
+  const startedFromContentAtTopRef = useRef<boolean>(false);
+  const [collapsedHeightPx, setCollapsedHeightPx] = useState<number>(0);
+  const [expandedHeightPx, setExpandedHeightPx] = useState<number>(0);
+  const [closeArmed, setCloseArmed] = useState(false);
+
+  // Compute pixel heights from minHeight and target 90vh
+  useEffect(() => {
+    const computeHeights = () => {
+      const viewportH = typeof window !== "undefined" ? window.innerHeight : 0;
+      const parseToPx = (val: string): number => {
+        if (!val) return 0;
+        if (val.endsWith("vh"))
+          return Math.round((parseFloat(val) / 100) * viewportH);
+        if (val.endsWith("px")) return Math.round(parseFloat(val));
+        // fallback percentage or other: treat as vh percentage
+        if (val.endsWith("%"))
+          return Math.round((parseFloat(val) / 100) * viewportH);
+        return Math.round(parseFloat(val)) || Math.round(0.24 * viewportH);
+      };
+      setCollapsedHeightPx(parseToPx(minHeight));
+      setExpandedHeightPx(Math.round(0.9 * viewportH));
+    };
+    computeHeights();
+    window.addEventListener("resize", computeHeights);
+    return () => window.removeEventListener("resize", computeHeights);
+  }, [minHeight]);
 
   // Drag handlers
   const handleDragStart = (e: React.TouchEvent | React.MouseEvent) => {
     if (!draggable) return;
+    // Prevent browser scroll during touch drag
+    if ("preventDefault" in e) {
+      try {
+        e.preventDefault();
+      } catch {}
+    }
+
+    // If expanded, allow drag start from header/handle, or from content only if scrolled to top
+    if (isExpanded) {
+      const target = (e as any).target as Node | null;
+      const inHeaderOrHandle = !!(
+        (headerRef.current && target && headerRef.current.contains(target)) ||
+        (handleRef.current && target && handleRef.current.contains(target))
+      );
+      const inContent = !!(
+        contentRef.current &&
+        target &&
+        contentRef.current.contains(target)
+      );
+      const contentAtTop = contentRef.current
+        ? contentRef.current.scrollTop <= 0
+        : false;
+      if (!inHeaderOrHandle && !(inContent && contentAtTop)) return;
+      startedFromContentAtTopRef.current = inContent && contentAtTop;
+    } else {
+      startedFromContentAtTopRef.current = false;
+    }
 
     const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
     setDragStartY(clientY);
-    setDragStartHeight(isExpanded ? 100 : 20); // percentage
+    setDragDeltaY(0);
+    setIsDragging(true);
+    startedExpandedRef.current = isExpanded;
   };
 
   const handleDragMove = (e: React.TouchEvent | React.MouseEvent) => {
-    if (!draggable) return;
+    if (!draggable || !isDragging) return;
+    // Prevent browser scroll during touch drag
+    if ("preventDefault" in e) {
+      try {
+        e.preventDefault();
+      } catch {}
+    }
 
     const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
-    const deltaY = dragStartY - clientY;
-    const threshold = 50; // pixels
-
-    if (deltaY > threshold && !isExpanded) {
-      setIsExpanded(true);
-    } else if (deltaY < -threshold && isExpanded) {
-      setIsExpanded(false);
-    }
+    let delta = dragStartY - clientY;
+    // If drag started while collapsed, allow only upward pull (ignore downward)
+    if (!startedExpandedRef.current && delta < 0) delta = 0;
+    setDragDeltaY(delta);
   };
 
   const handleDragEnd = () => {
-    if (!draggable) return;
-    // Reset drag state
+    if (!draggable || !isDragging) return;
+    // Asymmetric thresholds: open 80px up, close 160px down
+    const openThreshold = 80;
+    const closeThreshold = 160;
+
+    if (dragDeltaY > openThreshold && !startedExpandedRef.current) {
+      setIsExpanded(true);
+      setCloseArmed(false);
+    } else if (dragDeltaY < -closeThreshold && startedExpandedRef.current) {
+      if (startedFromContentAtTopRef.current && !closeArmed) {
+        // First downward swipe at top: arm close, do not close yet
+        setCloseArmed(true);
+      } else {
+        setIsExpanded(false);
+        setCloseArmed(false);
+      }
+    }
+
+    setIsDragging(false);
+    setDragDeltaY(0);
   };
+
+  // Lock body scroll when expanded
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const body = document.body;
+    const prev = body.style.overflow;
+    if (isExpanded) {
+      body.style.overflow = "hidden";
+    } else {
+      body.style.overflow = prev || "";
+      body.style.overflow = "";
+    }
+    return () => {
+      body.style.overflow = "";
+    };
+  }, [isExpanded]);
+
+  // Reset close arming when user scrolls content away from top
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+    const onScroll = () => {
+      if (el.scrollTop > 0) setCloseArmed(false);
+    };
+    el.addEventListener("scroll", onScroll, { passive: true } as any);
+    return () => {
+      el.removeEventListener("scroll", onScroll as any);
+    };
+  }, [contentRef.current]);
 
   return (
     <>
+      {/* Backdrop */}
+      {draggable && isExpanded && (
+        <div
+          className="fixed inset-0 z-40 bg-black/40"
+          onClick={() => setIsExpanded(false)}
+        />
+      )}
+
       {/* Sheet - Always visible */}
-      <div
+      <motion.div
         ref={sheetRef}
         style={{
           height: draggable
             ? isExpanded
-              ? "90vh"
-              : minHeight
+              ? expandedHeightPx
+              : collapsedHeightPx
             : height === "auto"
             ? "auto"
             : height,
           maxHeight: height === "auto" ? "90vh" : undefined,
-          transition: draggable ? "height 0.3s ease-out" : undefined,
         }}
+        animate={{
+          height: draggable
+            ? isExpanded
+              ? expandedHeightPx
+              : collapsedHeightPx
+            : height === "auto"
+            ? undefined
+            : undefined,
+        }}
+        transition={{ type: "spring", stiffness: 260, damping: 30, mass: 0.8 }}
         className={twMerge(
           "fixed inset-x-0 bottom-0 z-50 rounded-t-2xl bg-white shadow-lg",
           "flex flex-col",
-          height === "auto" ? "calc(100dvh - 70px)" : ""
+          height === "auto" ? "calc(100dvh - 170px)" : ""
         )}
         role="dialog"
         aria-modal="true"
@@ -87,38 +213,62 @@ export function BottomSheet({
       >
         {/* Handle bar */}
         {showHandle && (
-          <div
-            className={twMerge(
-              "mx-auto mt-3 h-1.5 w-12 rounded-full bg-gray-300",
-              draggable ? "cursor-grab active:cursor-grabbing" : ""
-            )}
-            onTouchStart={handleDragStart}
-            onMouseDown={handleDragStart}
-          />
+          <div className="w-full pt-2 pb-1">
+            <div
+              ref={handleRef}
+              className={twMerge(
+                "mx-auto h-2 w-16 rounded-full bg-gray-300",
+                draggable
+                  ? "cursor-grab active:cursor-grabbing select-none touch-none"
+                  : ""
+              )}
+              aria-label="Drag handle"
+            />
+          </div>
         )}
 
         {/* Header */}
         {title && (
-          <div className="flex items-center justify-between p-4 pb-2">
+          <div
+            ref={headerRef}
+            className="flex items-center justify-between p-4 pt-2 pb-2 select-none"
+            onTouchStart={handleDragStart}
+            onTouchMove={handleDragMove}
+            onTouchEnd={handleDragEnd}
+            onMouseDown={handleDragStart}
+            onMouseMove={handleDragMove}
+            onMouseUp={handleDragEnd}
+          >
             <h2
               id="bottom-sheet-title"
               className="text-lg font-semibold text-gray-900"
             >
               {title}
             </h2>
+            <button
+              type="button"
+              aria-label="Close"
+              className="ml-3 rounded p-2 text-gray-500 hover:bg-gray-100 active:bg-gray-200"
+              onClick={() => setIsExpanded(false)}
+            >
+              ×
+            </button>
           </div>
         )}
 
         {/* Content */}
         <div
           className={twMerge(
-            "flex-1 overflow-y-auto",
+            isExpanded
+              ? "flex-1 overflow-y-auto"
+              : "flex-1 overflow-hidden pointer-events-none touch-none",
             title ? "px-0 pb-4" : "p-0"
           )}
+          ref={contentRef}
         >
           {children}
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

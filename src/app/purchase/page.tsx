@@ -56,7 +56,7 @@ export default function InAppPurchaseScreen() {
         <IAPThumbView config={config} />
 
         {/* BottomSheet with IAPPricesView - Always visible */}
-        <BottomSheet title="" minHeight="24vh" draggable={true}>
+        <BottomSheet title="" minHeight="240px" draggable={true}>
           <IAPPricesView config={config} />
           <IAPMillionsUsersLoveUsView config={config} />
           <IAPGuaranteeView config={config} />
