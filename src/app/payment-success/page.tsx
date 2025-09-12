@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { FirebaseUtils } from "../../utils/FirebaseUtils";
 import { UserInfo } from "@/components/models/UserInfo";
 import { Utils } from "../../utils/Utils";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 function loadUserInfo(): UserInfo {
   try {
@@ -28,7 +28,6 @@ export default function PaymentSuccess() {
   const [config, setConfig] = useState(Utils.shared.defaultResultConfig);
   const [userInfo, setUserInfo] = useState<UserInfo>(UserInfo.parse({}));
   const [isClient, setIsClient] = useState(false);
-  const location = useSearchParams();
   const router = useRouter();
 
   useEffect(() => {

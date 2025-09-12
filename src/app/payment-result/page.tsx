@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { FirebaseUtils } from "../../utils/FirebaseUtils";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -45,4 +45,10 @@ const PaymentResultScreen = () => {
   return <p>Đang xử lý kết quả thanh toán…</p>;
 };
 
-export default PaymentResultScreen;
+export default function PaymentResultPage() {
+  return (
+    <Suspense fallback={<p>Đang xử lý kết quả thanh toán…</p>}>
+      <PaymentResultScreen />
+    </Suspense>
+  );
+}
