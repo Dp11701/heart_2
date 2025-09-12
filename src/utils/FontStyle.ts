@@ -1,13 +1,16 @@
-import {CSSProperties} from "react";
-import {Property} from "csstype";
+import { CSSProperties } from "react";
+import { Property } from "csstype";
 
 export const FontStyle = {
-    font: getFont
-}
+  font: getFont,
+};
 
-function getFont(fontSize: Property.FontSize, fontWeight: Property.FontWeight): CSSProperties  {
-    return  {
-        fontSize: fontSize,
-        fontWeight: fontWeight
-    }
+function getFont(
+  fontSize: Property.FontSize,
+  fontWeight: Property.FontWeight
+): CSSProperties {
+  return {
+    fontSize: fontSize,
+    fontWeight: fontWeight,
+  };
 }
