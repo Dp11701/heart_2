@@ -9,19 +9,38 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@mantine/core": "^8.3.1",
+    "antd": "^5.27.3",
+    "firebase": "^12.2.1",
+    "framer-motion": "^12.23.12",
+    "lottie-react": "^2.4.1",
+    "next": "15.5.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "next": "15.5.3"
+    "react-lottie": "^1.2.10",
+    "react-mobile-picker": "^1.2.0",
+    "react-modal": "^3.16.3",
+    "react-qr-code": "^2.0.18",
+    "react-slick": "^0.31.0",
+    "react-spinners": "^0.17.0",
+    "react-switch": "^7.1.0",
+    "react-toastify": "^11.0.5",
+    "slick-carousel": "^1.8.1",
+    "tailwind-merge": "^3.3.1",
+    "zod": "^4.1.5"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
+    "@types/react-lottie": "^1.2.10",
+    "@types/react-modal": "^3.16.3",
+    "@types/react-slick": "^0.23.13",
     "eslint": "^9",
     "eslint-config-next": "15.5.3",
-    "@eslint/eslintrc": "^3"
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }

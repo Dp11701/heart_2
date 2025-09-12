@@ -1,0 +1,63 @@
+{
+  "yourSpecialOffer": "Your special offer is reserved for only 10 minutes",
+  "thumbTitle": "For a limited time, your Heart Health plan is saved in iCardiac Premium",
+  "checkWithBody": "Check in with your body",
+  "enableFreeTrial": "Enable Free Trial",
+  "packs": [
+    {
+      "title": "YEARLY",
+      "subtitle": "Just $99.99 per year",
+      "price": "8,6 $\nper week",
+      "productId": "price_1Rkj7QL53Ofnsx8di6gIAohJ",
+      "subtitle1": "Money-back guarantee. Cancel anytime",
+      "ctaButtonTitle": "CONTINUE"
+    },
+    {
+      "title": "WEEKLY",
+      "subtitle": "",
+      "price": "6.99",
+      "productId": "price_1Rkj7QL53Ofnsx8di6gIAohJ",
+      "subtitle1": "You will pay $0 for your 3-day trial, then 12$ per week.\nMoney-back guarantee. Cancel anytime",
+      "ctaButtonTitle": "START 3-DAY TRIAL"
+    }
+  ],
+  "millionsOfUsers": "Millions of users %@",
+  "millionsOfUseHighlight": "love our plans",
+  "30Days": "30 Days Money-Back\nGuarantee",
+  "weBelieve": "We believe that our plan may work for you and you'll get visiable result in 4 weeks!",
+  "weBelieve2": "We are even ready to completely refund you within 30 days after purchase if you don't get visiable results and can demonstrate that you have followed our plan.",
+  "yourInfoSafe": "Your information is safe",
+  "yourInfoSafe2": "We won’t sell or rent your personal contact information for any marketing purposes whatsoever.",
+  "secureCheckout": "Secure checkout",
+  "secureCheckout2": "All information is encrypted and transmitted without risk using a Secure Sockets Layer protocol.",
+  "needHelp": "Need help?",
+  "needHelp2": "Send us an email: ",
+  "pleaseNote": "PLEASE NOTE: After your introductory offer, unless you cancel online before the end of then-current period, your subscription will renew automatically and you will be charged $6.99, the full not discounted price each week before you cancel. Subscriptions renew automatically at the end of each period unless you cancel online. If you are unsure how to cancel, visit our Subscription Terms. Prepayment of total plan cost required. You will need an iOS mobile phone to access the full version of the product. You may want to take a screenshot of this information and save it.",
+  "selectPaymentMethod": "Select your payment method",
+  "debitOrCredit": "Debit or Credit Card",
+  "priceToday": "Price today:",
+  "priceTodayDes": "$0 for 3-day trial",
+  "comments": [
+    {
+      "title": "Fantastic Experience!",
+      "description": "This app helped me lower my blood pressure!",
+      "author": "Mark",
+      "time": "52 years old",
+      "star": 5
+    },
+    {
+      "title": "Highly Recommend!",
+      "description": "I never knew tracking my heart rate could be this easy. It keeps me motivated to stay active.",
+      "author": "David",
+      "time": "59 years old",
+      "star": 5
+    },
+    {
+      "title": "Great Support for My Health Journey!",
+      "description": "I’ve lost weight and lowered my cholesterol with the help of the health insights this app gives.",
+      "author": "Maria",
+      "time": "54 years old",
+      "star": 5
+    }
+  ]
+}

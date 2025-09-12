@@ -1,0 +1,133 @@
+.title-text {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #2D3142;
+    padding: 0px 16px;
+    line-height: 1.5;
+}
+
+.normal-text-align-start {
+    text-align: start;
+}
+
+.continue-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - 48px);
+    background: linear-gradient(to top left, #ea3d6f, #FD876D);
+    height: 64px;
+    border-radius: 20px;
+    border: none;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    margin: 0 auto;
+    flex-shrink: 0;
+    z-index: 1;
+    box-shadow: none;
+    transform: none;
+    transition: transform 0.3s ease;
+    
+    /* Sticky positioning */
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    right: 24px;
+    width: calc(100% - 48px);
+}
+
+.continue-button-disabled {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - 48px);
+    background: gray;
+    height: 64px;
+    border-radius: 20px;
+    border: none;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    margin: 0 auto;
+    flex-shrink: 0;
+    z-index: 1;
+    box-shadow: none;
+    transform: none;
+    transition: transform 0.3s ease;
+    
+    /* Sticky positioning */
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    right: 24px;
+    width: calc(100% - 48px);
+}
+
+.continue-button:active {
+    transform: scale(0.95); /* hiệu ứng thu nhỏ nhẹ khi tap */
+}
+
+
+@keyframes slideUp {
+    from { bottom: 24px; }
+    to { bottom: 300px; }
+}
+
+@keyframes slideDown{
+    from { bottom: 300px; }
+    to { bottom: 24px; }
+}
+
+.button-animate-keyboard-on {
+    position: absolute;
+    /*bottom: 300px;*/
+    left: 16px;
+    right: 16px;
+    animation: slideUp 0.3s forwards;
+}
+
+.button-animate-keyboard {
+    position: absolute;
+    bottom: 24px;
+    left: 16px;
+    right: 16px;
+}
+
+
+.button-animate-keyboard-off {
+    position: absolute;
+    /*bottom: 24px;*/
+    left: 16px;
+    right: 16px;
+    animation: slideDown 0.3s forwards;
+}
+
+/* Allow text selection in specific areas if needed */
+.allow-text-selection {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Screen container with bottom padding for sticky button */
+.screen-container {
+  padding-bottom: 120px; /* 64px button height + 24px bottom margin + 32px extra space */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Content area that can scroll */
+.screen-content {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 20px;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

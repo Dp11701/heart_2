@@ -1,0 +1,47 @@
+.color-scale-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    height: 50px;
+    width: 275px;
+}
+
+.color-scale {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    gap: 1px;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.color-block {
+    width: 5px;
+    height: 20px;
+    border-radius: 3px;
+}
+
+.color-scale-label-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.label {
+    background-color: #4CAF50;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 12px;
+}

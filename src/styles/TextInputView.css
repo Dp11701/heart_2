@@ -1,0 +1,17 @@
+.text-input-container {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.text-input {
+    border: none;
+    width: 70px;
+    text-align: end;
+    background-color: #00000000;
+    font-size: 24px;
+    font-weight: bold;
+    outline: none;
+}

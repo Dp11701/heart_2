@@ -1,0 +1,80 @@
+/* VerticalRulerPicker Mobile Optimizations */
+.vertical-ruler-container {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.ruler-scroll-container {
+  /* Mobile touch optimizations */
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  
+  /* Prevent momentum scrolling issues */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  
+  /* Hardware acceleration */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  
+  /* Prevent text selection during scroll */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  
+  /* Hide scrollbars - Webkit browsers (Chrome, Safari, Edge) */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+/* Hide scrollbar for Webkit browsers */
+.ruler-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Optimize for mobile devices */
+@media (max-width: 768px) {
+  .ruler-scroll-container {
+    /* Increase touch sensitivity */
+    touch-action: pan-y;
+    
+    /* Better momentum scrolling */
+    -webkit-overflow-scrolling: touch;
+    
+    /* Prevent zoom on double tap */
+    touch-action: manipulation;
+  }
+  
+  /* Reduce visual updates during scroll for better performance */
+  .ruler-item {
+    will-change: transform;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+}
+
+/* Prevent scroll chaining on mobile */
+.ruler-scroll-container {
+  overscroll-behavior: contain;
+  -webkit-overscroll-behavior: contain;
+}
+
+/* Smooth transitions for value changes */
+.ruler-value-display {
+  transition: all 0.2s ease-out;
+}
+
+/* Optimize for iOS Safari */
+@supports (-webkit-touch-callout: none) {
+  .ruler-scroll-container {
+    -webkit-overflow-scrolling: touch;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+} 

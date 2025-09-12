@@ -1,0 +1,181 @@
+.wheel-picker-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    max-width: 200px;
+    margin: 0 auto;
+    position: relative;
+    background: inherit;
+    border-radius: 12px;
+    padding: 20px 0;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.wheel-picker {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+}
+
+.numbers-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.number-item {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+    transition-property: transform, color, font-size, font-weight, border-color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.15s;
+    transform: scale(1);
+    will-change: transform, color, font-size, font-weight;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* Scale effect for different distances */
+.number-item[data-diff="0"] {
+    transform: scale(1) translateZ(0);
+}
+
+.number-item[data-diff="1"] {
+    transform: scale(0.9) translateZ(0);
+}
+
+.number-item[data-diff="2"] {
+    transform: scale(0.8) translateZ(0);
+}
+
+/* Additional smooth transitions */
+.number-item.selected {
+    transform: scale(1) translateZ(0);
+}
+
+.number-value {
+    text-align: center;
+    min-width: 40px; /* Đảm bảo các số có cùng width */
+    pointer-events: none;
+}
+
+/* Removed hover and active effects to eliminate highlight on click */
+
+/* Selection lines removed - using borders on center item instead */
+
+.unit-text {
+    margin-left: 16px;
+    color: #3A79D8;
+    font-size: 14px;
+    font-weight: 500;
+    position: absolute;
+    left: 50%;
+    transform: translateX(20px); /* Đẩy unit ra bên phải số */
+    pointer-events: none;
+}
+
+/* Gradient overlay for fade effect */
+.wheel-picker::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: inherit;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.wheel-picker::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: inherit;
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* Mobile touch improvements */
+@media (max-width: 768px) {
+    .wheel-picker {
+        touch-action: pan-y;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .number-item {
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 0;
+    }
+    
+    .wheel-picker-container {
+        padding: 10px 0;
+    }
+}
+
+/* Smooth scrolling for web */
+.wheel-picker {
+    scroll-behavior: smooth;
+}
+
+/* Momentum scrolling improvements */
+.numbers-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    will-change: transform;
+}
+
+/* Optimized touch interactions */
+.number-item {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    touch-action: manipulation;
+}
+
+/* Focus styles for accessibility */
+.number-item:focus {
+    outline: 2px solid #3A79D8;
+    outline-offset: 2px;
+}
+
+/* Prevent text selection on mobile */
+* {
+    -webkit-tap-highlight-color: transparent;
+} 

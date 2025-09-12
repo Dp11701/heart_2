@@ -1,0 +1,20 @@
+.select-age-picker {
+    width: 50%;
+    margin: 0 auto;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.select-age-picker-item {
+    font-size: 24px;
+    /*font-weight: 500;*/
+}
+
+.select-age-picker-item-selected {
+    font-size: 24px;
+    font-weight: bold;
+    color: #3A79D8;
+}
+
+.select-age-text-input {
+    text-align: center;
+}

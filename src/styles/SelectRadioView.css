@@ -1,0 +1,57 @@
+.option-button {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    background-color: white;
+    height: 56px;
+    border-radius: 16px;
+    color: #2D3142;
+    font-size: 17px;
+    font-weight: 500;
+    margin: 0 24px;
+    padding: 0 16px;
+    transition: transform 0.3s ease;
+}
+
+.option-button-active {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    background-color: white;
+    height: 56px;
+    border-radius: 16px;
+    color: #2D3142;
+    font-size: 17px;
+    font-weight: 500;
+    margin: 0 24px;
+    padding: 0 16px;
+    transition: transform 0.3s ease;
+}
+
+@keyframes bounceScale {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.bounce {
+    animation: bounceScale 0.5s ease-in-out;
+}
+
+
+.item-list {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.item-list.show {
+    opacity: 1;
+    transform: translateY(0);
+}

@@ -1,0 +1,25 @@
+import { z } from "zod";
+
+export const IntroStep = z.enum([
+  "WELCOME",
+  "SELECT_GENDER",
+  "SELECT_AGE",
+  "DOCTOR",
+  "SELECT_HEIGHT",
+  "SELECT_WEIGHT",
+  "SELECT_HEALTH_CONDITION",
+  "SELECT_CURRENT_HEALTH_MONITOR",
+  "DISCOVERED",
+  "SELECT_CHOLESTEROL",
+  "SELECT_BLOOD_PRESSURE",
+  "SELECT_HYPERTENSION",
+  "SELECT_HIGH_BLOOD_PRESSURE",
+  "SELECT_ACTIVITY_LEVEL",
+  "SELECT_SMOKING_HISTORY",
+  "SELECT_ALCOHOL",
+  "OVERVIEW_INFO",
+  "ANALYZING",
+  // "SEND_EMAIL",
+]);
+
+export type IntroStep = z.infer<typeof IntroStep>;

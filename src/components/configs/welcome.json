@@ -1,0 +1,300 @@
+{
+  "WELCOME": {
+    "trustedBy": "Trusted by",
+    "1M+": "1M+ Users",
+    "welcomeTo": "Welcome to ",
+    "appName": "iCardiac",
+    "features": [
+      "Control your Heart health",
+      "Access Blood Pressure Report",
+      "Improve your stress level"
+    ],
+    "continueTitle": "Continue",
+    "advice": "This does not constitute a diagnosis of medical advice",
+    "privacyPolicy": "Privacy Policy",
+    "termOfUse": "Term Of Use",
+    "subscriptionTerms": "Subscription Terms",
+    "privacyPolicyLink": "https://begamob.com/cast-policy.html",
+    "termOfUseLink": "https://begamob.com/cast-policy.html",
+    "subscriptionTermsLink": "https://begamob.com/cast-policy.html"
+  },
+  "SELECT_GENDER": {
+    "title": "What is Your Gender",
+    "description": "Gender affects your cardiovascular health. It help us tailor your results to you.",
+    "male": "Male",
+    "female": "Female",
+    "preferNotToSay": "Prefer not to say"
+  },
+  "SELECT_AGE": {
+    "title": "What is Your Age",
+    "description": "This will help us properly determine your health condition",
+    "note": "Please enter a value from %@ to %@",
+    "continue": "Continue",
+    "units": [
+      {
+        "unit": "year",
+        "min": 20,
+        "max": 95,
+        "ideal": 30
+      }
+    ]
+  },
+  "SELECT_WEIGHT": {
+    "title": "What is your current weight?",
+    "note": "Please enter a value from %@ to %@",
+    "continue": "Continue",
+    "units": [
+      {
+        "unit": "kg",
+        "min": 10,
+        "max": 300,
+        "ideal": 72
+      },
+      {
+        "unit": "lbs",
+        "min": 20,
+        "max": 700,
+        "ideal": 30
+      }
+    ]
+  },
+  "SELECT_HEIGHT": {
+    "title": "How tall are you?",
+    "note": "Please enter a value from %@ to %@",
+    "continue": "Continue",
+    "units": [
+      {
+        "unit": "cm",
+        "min": 20,
+        "max": 260,
+        "ideal": 150
+      },
+      {
+        "unit": "ft/in",
+        "min": 0,
+        "max": 180,
+        "ideal": 60
+      }
+    ]
+  },
+  "OVERVIEW_INFO": {
+    "title": "Your cardiac risk assessment based on you physical parameters",
+    "tenYears": "Your 10-year risk of a heart-attack",
+    "normal": "Normal",
+    "weight": "Weight",
+    "height": "Height",
+    "age": "Age",
+    "gender": "Gender",
+    "80LikeYou": "80% of iCardiac' users are like you",
+    "description": "Remember maintaining healthy habits, including a balanced diet and exercise are important to support your overall health",
+    "continue": "Continue"
+  },
+  "SELECT_HEALTH_CONDITION": {
+    "title": "Your Current Health Goal?",
+    "options": [
+      {
+        "key": "icBloodPressure",
+        "value": "Reduce blood pressure"
+      },
+      {
+        "key": "icHeartRate",
+        "value": "Track heart rate & stress"
+      },
+      {
+        "key": "icNutrition",
+        "value": "Eat healthier"
+      },
+      {
+        "key": "icEnergy",
+        "value": "Boost my daily energy"
+      },
+      {
+        "key": "icImprove",
+        "value": "Improve overall wellbeing"
+      },
+      {
+        "key": "icExploring",
+        "value": "Just exploring, not sure yet"
+      }
+    ]
+  },
+  "SELECT_CURRENT_HEALTH_MONITOR": {
+    "title": "Do You Currently Monitor Your Heart Health?",
+    "options": [
+      {
+        "key": "icWatch",
+        "value": "Yes, with a wearable"
+      },
+      {
+        "key": "icManually",
+        "value": "Yes, manually"
+      },
+      {
+        "key": "icProhibition",
+        "value": "No, I don’t"
+      },
+      {
+        "key": "icHealthcare",
+        "value": "I’m not sure what to track"
+      }
+    ]
+  },
+  "SELECT_CHOLESTEROL": {
+    "title": "Do you have high Cholesterol?",
+    "options": [
+      {
+        "key": "icCheck",
+        "value": "Yes"
+      },
+      {
+        "key": "icCancel",
+        "value": "No"
+      },
+      {
+        "key": "icRequest",
+        "value": "I don't know"
+      }
+    ]
+  },
+  "SELECT_BLOOD_PRESSURE": {
+    "title": "What is your typical blood pressure reading?",
+    "options": [
+      {
+        "key": "icSmile",
+        "value": "Less than 120/Less than 80"
+      },
+      {
+        "key": "icConfused",
+        "value": "120-129/less than 80"
+      },
+      {
+        "key": "icSad",
+        "value": "130-139/80-89"
+      },
+      {
+        "key": "icVerySad",
+        "value": "140 or higher/90 or higher"
+      },
+      {
+        "key": "icRequest",
+        "value": "I don't know"
+      }
+    ]
+  },
+  "SELECT_HYPERTENSION": {
+    "title": "Do you have hypertension?",
+    "options": [
+      {
+        "key": "icCheck",
+        "value": "Yes"
+      },
+      {
+        "key": "icCancel",
+        "value": "No"
+      },
+      {
+        "key": "icRequest",
+        "value": "I don't know"
+      }
+    ]
+  },
+  "SELECT_HIGH_BLOOD_PRESSURE": {
+    "title": "Do you take medication for high blood pressure?",
+    "options": [
+      {
+        "key": "icCheck",
+        "value": "Yes"
+      },
+      {
+        "key": "icCancel",
+        "value": "No"
+      }
+    ]
+  },
+  "SELECT_ACTIVITY_LEVEL": {
+    "title": "What is your physical activity level?",
+    "options": [
+      {
+        "key": "icSedentary",
+        "value": "Sedentary (little to no exercise)"
+      },
+      {
+        "key": "icLightActivity",
+        "value": "Light activity (1-2 times/week)"
+      },
+      {
+        "key": "icModerate",
+        "value": "Moderate activity (3-5 times/week)"
+      },
+      {
+        "key": "icVeryActive",
+        "value": "Very active (more than 5 times/week)"
+      }
+    ]
+  },
+  "SELECT_SMOKING_HISTORY": {
+    "title": "Do You Smoke Or Have A Smoking History?",
+    "options": [
+      {
+        "key": "icTobacco",
+        "value": "I smoke tobacco"
+      },
+      {
+        "key": "icVape",
+        "value": "Only vape"
+      },
+      {
+        "key": "icSmoker",
+        "value": "I'm an ex-smoker"
+      },
+      {
+        "key": "icNeverSmoker",
+        "value": "I've never smoked"
+      }
+    ]
+  },
+  "SELECT_ALCOHOL": {
+    "title": "Do You Drink Alcohol?",
+    "options": [
+      {
+        "key": "icRegularly",
+        "value": "Regularly"
+      },
+      {
+        "key": "icOccasionally",
+        "value": "Occasionally"
+      },
+      {
+        "key": "icBeer",
+        "value": "Regularly but in the past"
+      },
+      {
+        "key": "icNoAlcohol",
+        "value": "I don't drink"
+      }
+    ]
+  },
+  "ANALYZING": {
+    "title": "Analyzing your health status",
+    "options": [
+      {
+        "key": "icCheck",
+        "value": "Building your customized health plan using your answers"
+      },
+      {
+        "key": "icCheck",
+        "value": "Creating advice for mental wellness."
+      },
+      {
+        "key": "icCheck",
+        "value": "Adjusting our measurement algorithms to fit your data."
+      }
+    ]
+  },
+  "SEND_EMAIL": {
+    "title": "Please enter your email to get your personalized health plan",
+    "description": "We respect your privacy and strictly adhere to our %@ when processing with your personal data. By submitting this form with contact information, you agree to receive communications from us",
+    "privacyPolicy": "Privacy Policy",
+    "submit": "Submit"
+  }
+}

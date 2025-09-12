@@ -1,0 +1,28 @@
+.gender-card-container {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    border-radius: 20px;
+    padding: 16px;
+    gap: 12px;
+    align-items: center;
+    color: black;
+}
+
+/*.gender-card-container:hover {*/
+/*    background-color: #FF3D60;*/
+/*    color: white;*/
+/*}*/
+
+.gender-prefer-not-to-say {
+    margin-top: 16px;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    color: #CDD0D6;
+}
+
+.gender-prefer-not-to-say:hover {
+    color: #FF3D60;
+}
