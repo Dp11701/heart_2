@@ -14,6 +14,8 @@ export function InAppPurchaseScreen() {
   const [config, setConfig] = useState(Utils.shared.defaultIAPConfig);
 
   async function switchConfigs() {
+    if (typeof window === "undefined") return;
+
     const locale = localStorage.getItem("languageCode");
     if (locale) {
       try {

@@ -1,18 +1,15 @@
-import icAppIcon from "../assets/icAppIconPayment.png";
-import icSuccess2 from "../assets/icSuccess2.png";
-import icDownloadAppStore from "../assets/icDownloadAppStore.png";
+"use client";
+
 import QRCode from "react-qr-code";
 import { useEffect, useState } from "react";
 import { Utils } from "@/utils/Utils";
 import { FirebaseUtils } from "@/utils/FirebaseUtils";
 import Image from "next/image";
 
-export function FinalSuccessScreen() {
+export default function FinalSuccessPaymentCancelScreen() {
   const [config, setConfig] = useState(Utils.shared.defaultResultConfig);
 
   async function switchConfigs() {
-    if (typeof window === "undefined") return;
-
     const locale = localStorage.getItem("languageCode");
     if (locale) {
       try {
@@ -30,36 +27,7 @@ export function FinalSuccessScreen() {
 
   useEffect(() => {
     switchConfigs().then();
-    save().then();
   }, []);
-
-  async function save() {
-    if (typeof window === "undefined") return;
-
-    const sessionId = localStorage.getItem("sessionId") || "";
-    const code = localStorage.getItem("authorization_code") || "";
-    localStorage.removeItem("authorization_code");
-    localStorage.removeItem("sessionId");
-    try {
-      await fetch(
-        `${process.env.REACT_APP_TECH_URL}/api/v1/user/update/${sessionId}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            authorization_code: code,
-            type: "apple",
-          }),
-        }
-      );
-    } catch (error) {
-      console.error("Error during registration:", error);
-      // Handle error appropriately, e.g., show an error message to the user.
-      return;
-    }
-  }
 
   return (
     <div
@@ -70,9 +38,9 @@ export function FinalSuccessScreen() {
         alignItems: "center",
         backgroundColor: "#F4F6FA",
         width: "calc(100dvw-32px)",
-        minHeight: "calc(100dvh - 48px)",
         padding: "24px 16px",
       }}
+      className="h-full"
     >
       <div
         style={{
@@ -93,11 +61,11 @@ export function FinalSuccessScreen() {
           }}
         >
           <Image
-            src={icAppIcon}
+            src="/assets/icAppIconPayment.png"
             alt={""}
+            width={60}
+            height={60}
             style={{
-              width: 60,
-              height: 60,
               borderRadius: 12,
               boxShadow: "0px 4px 24px 0px #FF255B24",
             }}
@@ -117,7 +85,7 @@ export function FinalSuccessScreen() {
             lineHeight: 1.3,
           }}
         >
-          {config.thanks}
+          {config.thanksCancel}
         </span>
 
         <div
@@ -139,14 +107,16 @@ export function FinalSuccessScreen() {
           <a
             href={process.env.REACT_APP_APP_LINK}
             onClick={() => {
-              FirebaseUtils.trackingPayment("go_store");
+              FirebaseUtils.trackingPayment("_click");
             }}
             target={"_blank"}
           >
             <Image
-              src={icDownloadAppStore}
+              src="/assets/icDownloadAppStore.png"
               alt={""}
-              style={{ width: 133, aspectRatio: "133/46" }}
+              style={{ aspectRatio: "133/46" }}
+              width={133}
+              height={46}
             />
           </a>
         </div>
@@ -167,9 +137,11 @@ export function FinalSuccessScreen() {
             {config.step2}
           </span>
           <Image
-            src={icSuccess2}
+            src="/assets/icSuccess2.png"
             alt={""}
-            style={{ width: 222, aspectRatio: "888/576" }}
+            style={{ aspectRatio: "888/576" }}
+            width={222}
+            height={576}
           />
         </div>
 

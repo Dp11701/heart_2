@@ -73,7 +73,7 @@ export function BottomSheet({
         className={twMerge(
           "fixed inset-x-0 bottom-0 z-50 rounded-t-2xl bg-white shadow-lg",
           "flex flex-col",
-          height === "auto" ? "max-h-[90vh]" : ""
+          height === "auto" ? "calc(100dvh - 70px)" : ""
         )}
         role="dialog"
         aria-modal="true"

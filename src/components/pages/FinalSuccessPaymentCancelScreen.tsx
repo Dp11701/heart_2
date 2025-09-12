@@ -12,6 +12,8 @@ export function FinalSuccessPaymentCancelScreen() {
   const [config, setConfig] = useState(Utils.shared.defaultResultConfig);
 
   async function switchConfigs() {
+    if (typeof window === "undefined") return;
+
     const locale = localStorage.getItem("languageCode");
     if (locale) {
       try {

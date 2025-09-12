@@ -35,7 +35,11 @@ export class Utils {
 
   async welcomeConfig(languageCode: string | null | undefined = null) {
     const lang =
-      languageCode || localStorage.getItem("languageCode") || "default";
+      languageCode ||
+      (typeof window !== "undefined"
+        ? localStorage.getItem("languageCode")
+        : null) ||
+      "default";
     try {
       const rp = await fetch(
         `${process.env.PUBLIC_URL}/configs/${lang}/welcome.json`
@@ -48,7 +52,11 @@ export class Utils {
 
   async valueConfig(languageCode: string | null | undefined = null) {
     const lang =
-      languageCode || localStorage.getItem("languageCode") || "default";
+      languageCode ||
+      (typeof window !== "undefined"
+        ? localStorage.getItem("languageCode")
+        : null) ||
+      "default";
     try {
       const rp = await fetch(
         `${process.env.PUBLIC_URL}/configs/${lang}/value_config.json`
@@ -61,7 +69,11 @@ export class Utils {
 
   async resultConfig(languageCode: string | null | undefined = null) {
     const lang =
-      languageCode || localStorage.getItem("languageCode") || "default";
+      languageCode ||
+      (typeof window !== "undefined"
+        ? localStorage.getItem("languageCode")
+        : null) ||
+      "default";
     try {
       const rp = await fetch(
         `${process.env.PUBLIC_URL}/configs/${lang}/result.json`
@@ -74,7 +86,11 @@ export class Utils {
 
   async iapConfig(languageCode: string | null | undefined = null) {
     const lang =
-      languageCode || localStorage.getItem("languageCode") || "default";
+      languageCode ||
+      (typeof window !== "undefined"
+        ? localStorage.getItem("languageCode")
+        : null) ||
+      "default";
     try {
       const rp = await fetch(
         `${process.env.PUBLIC_URL}/configs/${lang}/iap.json`

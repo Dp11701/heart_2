@@ -43,7 +43,9 @@ function IntroScreen() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("userInfo", JSON.stringify(userInfo));
+    if (typeof window !== "undefined") {
+      localStorage.setItem("userInfo", JSON.stringify(userInfo));
+    }
   }, [userInfo]);
 
   // async function switchConfigs() {

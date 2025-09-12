@@ -1,18 +1,15 @@
-import icAppIcon from "../assets/icAppIconPayment.png";
-import icSuccess2 from "../assets/icSuccess2.png";
-import icDownloadAppStore from "../assets/icDownloadAppStore.png";
+"use client";
+
 import QRCode from "react-qr-code";
 import { useEffect, useState } from "react";
-import { Utils } from "@/utils/Utils";
-import { FirebaseUtils } from "@/utils/FirebaseUtils";
+import { FirebaseUtils } from "../../utils/FirebaseUtils";
+import { Utils } from "../../utils/Utils";
 import Image from "next/image";
 
-export function FinalSuccessScreen() {
+export default function FinalSuccessScreen() {
   const [config, setConfig] = useState(Utils.shared.defaultResultConfig);
 
   async function switchConfigs() {
-    if (typeof window === "undefined") return;
-
     const locale = localStorage.getItem("languageCode");
     if (locale) {
       try {
@@ -34,8 +31,6 @@ export function FinalSuccessScreen() {
   }, []);
 
   async function save() {
-    if (typeof window === "undefined") return;
-
     const sessionId = localStorage.getItem("sessionId") || "";
     const code = localStorage.getItem("authorization_code") || "";
     localStorage.removeItem("authorization_code");
@@ -70,9 +65,9 @@ export function FinalSuccessScreen() {
         alignItems: "center",
         backgroundColor: "#F4F6FA",
         width: "calc(100dvw-32px)",
-        minHeight: "calc(100dvh - 48px)",
         padding: "24px 16px",
       }}
+      className="h-full"
     >
       <div
         style={{
@@ -93,11 +88,11 @@ export function FinalSuccessScreen() {
           }}
         >
           <Image
-            src={icAppIcon}
+            src="/assets/icAppIconPayment.png"
             alt={""}
+            width={60}
+            height={60}
             style={{
-              width: 60,
-              height: 60,
               borderRadius: 12,
               boxShadow: "0px 4px 24px 0px #FF255B24",
             }}
@@ -144,9 +139,11 @@ export function FinalSuccessScreen() {
             target={"_blank"}
           >
             <Image
-              src={icDownloadAppStore}
+              src="/assets/icDownloadAppStore.png"
               alt={""}
-              style={{ width: 133, aspectRatio: "133/46" }}
+              style={{ aspectRatio: "133/46" }}
+              width={133}
+              height={46}
             />
           </a>
         </div>
@@ -167,9 +164,11 @@ export function FinalSuccessScreen() {
             {config.step2}
           </span>
           <Image
-            src={icSuccess2}
+            src="/assets/icSuccess2.png"
+            width={222}
+            height={576}
             alt={""}
-            style={{ width: 222, aspectRatio: "888/576" }}
+            style={{ aspectRatio: "888/576" }}
           />
         </div>
 
