@@ -33,7 +33,6 @@ export function BottomSheet({
   const startedFromContentAtTopRef = useRef<boolean>(false);
   const [collapsedHeightPx, setCollapsedHeightPx] = useState<number>(0);
   const [expandedHeightPx, setExpandedHeightPx] = useState<number>(0);
-  const [closeArmed, setCloseArmed] = useState(false);
 
   // Compute pixel heights from minHeight and target 90vh
   useEffect(() => {
@@ -119,15 +118,9 @@ export function BottomSheet({
 
     if (dragDeltaY > openThreshold && !startedExpandedRef.current) {
       setIsExpanded(true);
-      setCloseArmed(false);
     } else if (dragDeltaY < -closeThreshold && startedExpandedRef.current) {
-      if (startedFromContentAtTopRef.current && !closeArmed) {
-        // First downward swipe at top: arm close, do not close yet
-        setCloseArmed(true);
-      } else {
-        setIsExpanded(false);
-        setCloseArmed(false);
-      }
+      // Close immediately when dragging down past threshold while expanded
+      setIsExpanded(false);
     }
 
     setIsDragging(false);
@@ -150,18 +143,7 @@ export function BottomSheet({
     };
   }, [isExpanded]);
 
-  // Reset close arming when user scrolls content away from top
-  useEffect(() => {
-    const el = contentRef.current;
-    if (!el) return;
-    const onScroll = () => {
-      if (el.scrollTop > 0) setCloseArmed(false);
-    };
-    el.addEventListener("scroll", onScroll, { passive: true } as any);
-    return () => {
-      el.removeEventListener("scroll", onScroll as any);
-    };
-  }, [contentRef.current]);
+  // No arming step; allow immediate close when dragging down from top
 
   return (
     <>

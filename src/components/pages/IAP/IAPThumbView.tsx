@@ -98,7 +98,7 @@ export function IAPThumbView(props: { config: IAPConfig }) {
       style={{
         position: "relative",
         width: "100%",
-        height: "calc(100vh - 70px - 300px)",
+        height: "calc(100vh - 70px - 220px)",
         overflow: "hidden",
         borderRadius: "0px",
       }}

@@ -2,6 +2,7 @@ import "@/styles/AnalyzingScreen.css";
 import "@/styles/Common.css";
 import { AnalyzingSchema } from "../models/WelcomeConfig";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -143,7 +144,12 @@ export function AnalyzingScreen(props: AnalyzingScreenProps) {
                 <div className="relative w-6 h-6">
                   {status === "completed" && (
                     <div className="w-6 h-6 bg-[#f5e4eb] rounded-full flex items-center justify-center p-1">
-                      <img src="/assets/icons/icTickRed.svg" alt="icTickRed" />
+                      <Image
+                        src="/assets/icTickRed.svg"
+                        alt="icTickRed"
+                        width={24}
+                        height={24}
+                      />
                     </div>
                   )}
 
