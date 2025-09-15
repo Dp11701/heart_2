@@ -106,28 +106,42 @@ export function IAPThumbView(props: { config: IAPConfig }) {
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
     >
-      {/* Video Container - Full Size */}
-      {videos.map((videoSrc, index) => (
-        <video
-          key={index}
-          ref={(el) => {
-            videoRefs.current[index] = el;
-          }}
-          className="w-full h-full object-cover"
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            opacity: index === currentVideoIndex ? 1 : 0,
-            transition: "opacity 0.5s ease-in-out",
-          }}
-          muted
-          playsInline
-        >
-          <source src={videoSrc} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      ))}
+      {/* Video Track - Slide transition */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          transition: "transform 0.4s ease-in-out",
+          transform: `translateX(-${currentVideoIndex * 100}%)`,
+        }}
+      >
+        {videos.map((videoSrc, index) => (
+          <div
+            key={index}
+            style={{
+              width: "100%",
+              height: "100%",
+              flex: "0 0 100%",
+            }}
+          >
+            <video
+              ref={(el) => {
+                videoRefs.current[index] = el;
+              }}
+              className="w-full h-full object-cover"
+              muted
+              playsInline
+            >
+              <source src={videoSrc} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        ))}
+      </div>
 
       {/* Dots Indicator - Overlay on video */}
       <div

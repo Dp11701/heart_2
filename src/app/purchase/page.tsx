@@ -12,6 +12,7 @@ import { BottomSheet } from "@/components/Molecules/BottomSheet";
 
 export default function InAppPurchaseScreen() {
   const [config, setConfig] = useState(Utils.shared.defaultIAPConfig);
+  const [isMobile, setIsMobile] = useState(false);
 
   async function switchConfigs() {
     if (typeof window === "undefined") return;
@@ -40,6 +41,29 @@ export default function InAppPurchaseScreen() {
     FirebaseUtils.trackingIntro("iap_intro1");
   }, []);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
+    const updateIsMobile = () => setIsMobile(mediaQuery.matches);
+
+    updateIsMobile();
+
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", updateIsMobile);
+    } else {
+      window.addEventListener("resize", updateIsMobile);
+    }
+
+    return () => {
+      if (typeof mediaQuery.removeEventListener === "function") {
+        mediaQuery.removeEventListener("change", updateIsMobile);
+      } else {
+        window.removeEventListener("resize", updateIsMobile);
+      }
+    };
+  }, []);
+
   return (
     <div className="App-No-OverFlow">
       <div
@@ -55,12 +79,20 @@ export default function InAppPurchaseScreen() {
         <IAPSpecificOfferView config={config} />
         <IAPThumbView config={config} />
 
-        {/* BottomSheet with IAPPricesView - Always visible */}
-        <BottomSheet title="" minHeight="240px" draggable={true}>
-          <IAPPricesView config={config} />
-          <IAPMillionsUsersLoveUsView config={config} />
-          <IAPGuaranteeView config={config} />
-        </BottomSheet>
+        {/* Hiển thị BottomSheet chỉ trên mobile; desktop hiển thị trực tiếp */}
+        {isMobile ? (
+          <BottomSheet title="" minHeight="240px" draggable={true}>
+            <IAPPricesView config={config} />
+            <IAPMillionsUsersLoveUsView config={config} />
+            <IAPGuaranteeView config={config} />
+          </BottomSheet>
+        ) : (
+          <>
+            <IAPPricesView config={config} />
+            <IAPMillionsUsersLoveUsView config={config} />
+            <IAPGuaranteeView config={config} />
+          </>
+        )}
       </div>
     </div>
   );
