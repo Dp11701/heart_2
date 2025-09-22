@@ -8,12 +8,14 @@ import { SelectInputValueSchema } from "../models/WelcomeConfig";
 import { ValueConfigItem } from "../models/ValueConfig";
 import { UserInfo } from "../models/UserInfo";
 import { TextInput } from "../Molecules/TextInput";
+import { configKbIntro } from "@/utils/Constant";
 
 export interface SelectHeightScreenProps {
   config: SelectInputValueSchema;
   heightConfig: ValueConfigItem[];
   userInfo: UserInfo;
   onContinue: (value: number, unit: string) => void;
+  constConfig: number;
 }
 
 export function SelectHeightScreen(
@@ -133,38 +135,41 @@ export function SelectHeightScreen(
           />
         </div>
         <div className="flex flex-col items-center justify-between w-full h-full">
-          {/* <TextInputView
-            unit={unit}
-            min={minValue}
-            ideal={idealValue}
-            max={maxValue}
-            currentValue={inputValue}
-            onChangeValue={(newValue: string) => {
-              setInputValue(newValue);
-              const numValue = Number(newValue);
-              if (unit === "cm") {
-                setCmValue(numValue);
-              } else {
-                setInchValue(numValue);
+          {props.constConfig === configKbIntro.defaultKbIntro ? (
+            <TextInputView
+              unit={unit}
+              min={minValue}
+              ideal={idealValue}
+              max={maxValue}
+              currentValue={inputValue}
+              onChangeValue={(newValue: string) => {
+                setInputValue(newValue);
+                const numValue = Number(newValue);
+                if (unit === "cm") {
+                  setCmValue(numValue);
+                } else {
+                  setInchValue(numValue);
+                }
+                checkValid(newValue, minValue, maxValue);
+              }}
+              useVerticalRulerPicker={true}
+              gender={props.userInfo.gender as "Male" | "Female" | undefined}
+            />
+          ) : (
+            <TextInput
+              placeholder={
+                unit === "ft/in"
+                  ? formatInchesToFtIn(idealValue)
+                  : idealValue.toString()
               }
-              checkValid(newValue, minValue, maxValue);
-            }}
-            useVerticalRulerPicker={true}
-            gender={props.userInfo.gender as "Male" | "Female" | undefined}
-          /> */}
-          <TextInput
-            placeholder={
-              unit === "ft/in"
-                ? formatInchesToFtIn(idealValue)
-                : idealValue.toString()
-            }
-            unit={unit}
-            value={inputValue}
-            setValue={(newValue: string) => {
-              setInputValue(newValue);
-              checkValid(newValue, minValue, maxValue);
-            }}
-          />
+              unit={unit}
+              value={inputValue}
+              setValue={(newValue: string) => {
+                setInputValue(newValue);
+                checkValid(newValue, minValue, maxValue);
+              }}
+            />
+          )}
         </div>
       </div>
 

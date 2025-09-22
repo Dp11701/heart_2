@@ -7,11 +7,13 @@ import { TextInputView } from "@/components/Molecules/TextInputView";
 import { SelectInputValueSchema } from "@/components/models/WelcomeConfig";
 import { ValueConfigItem } from "../models/ValueConfig";
 import { TextInput } from "../Molecules/TextInput";
+import { configKbIntro } from "@/utils/Constant";
 
 export interface SelectAgeScreenProps {
   config: SelectInputValueSchema;
   ageConfig: ValueConfigItem[];
   onContinue: (age: number) => void;
+  constConfig: number;
 }
 
 function SelectAgeScreen(props: SelectAgeScreenProps): JSX.Element {
@@ -57,31 +59,34 @@ function SelectAgeScreen(props: SelectAgeScreenProps): JSX.Element {
         <span className="title-text">{props.config.title}</span>
         <IdealView text={props.config.description || ""} />
 
-        {/* <TextInputView
-          min={minValue}
-          ideal={idealValue}
-          max={maxValue}
-          currentValue={inputValue}
-          textInputStyles={{ textAlign: "center" }}
-          maxLength={2}
-          onChangeValue={(newValue: string) => {
-            setInputValue(newValue);
-            checkValid(newValue, minValue, maxValue);
-          }}
-          useWheelPicker={true}
-          unit="Years"
-        /> */}
-        <div className="flex flex-col h-[300px] w-full items-center justify-center">
-          <TextInput
-            placeholder={idealValue.toString()}
-            unit="Years"
-            value={inputValue}
-            setValue={(newValue: string) => {
+        {props.constConfig === configKbIntro.defaultKbIntro ? (
+          <TextInputView
+            min={minValue}
+            ideal={idealValue}
+            max={maxValue}
+            currentValue={inputValue}
+            textInputStyles={{ textAlign: "center" }}
+            maxLength={2}
+            onChangeValue={(newValue: string) => {
               setInputValue(newValue);
               checkValid(newValue, minValue, maxValue);
             }}
+            useWheelPicker={true}
+            unit="Years"
           />
-        </div>
+        ) : (
+          <div className="flex flex-col h-[300px] w-full items-center justify-center">
+            <TextInput
+              placeholder={idealValue.toString()}
+              unit="Years"
+              value={inputValue}
+              setValue={(newValue: string) => {
+                setInputValue(newValue);
+                checkValid(newValue, minValue, maxValue);
+              }}
+            />
+          </div>
+        )}
       </div>
 
       <ContinueButton

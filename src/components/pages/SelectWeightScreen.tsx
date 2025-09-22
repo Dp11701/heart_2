@@ -9,12 +9,14 @@ import { BMIResult } from "../Molecules/BMIResult";
 import ContinueButton from "../ContinueButton";
 import { SwitcherView } from "../Molecules/SwitcherView";
 import { TextInput } from "../Molecules/TextInput";
+import { configKbIntro } from "@/utils/Constant";
 
 export interface SelectWeightScreenProps {
   config: SelectInputValueSchema;
   weightConfig: ValueConfigItem[];
   userInfo: any; // Add userInfo prop
   onContinue: (value: number, unit: string) => void;
+  constConfig: number;
 }
 
 export function SelectWeightScreen(
@@ -113,28 +115,31 @@ export function SelectWeightScreen(
 
         <div style={{ height: 26 }}></div>
 
-        {/* <TextInputView
-          unit={unit}
-          min={minValue}
-          ideal={idealValue}
-          max={maxValue}
-          currentValue={inputValue}
-          onChangeValue={(newValue: string) => {
-            setInputValue(newValue);
-            checkValid(newValue, minValue, maxValue);
-          }}
-          useRulerPicker={true}
-          pickerOrientation="horizontal"
-        /> */}
-        <TextInput
-          placeholder={idealValue.toString()}
-          unit={unit}
-          value={inputValue}
-          setValue={(newValue: string) => {
-            setInputValue(newValue);
-            checkValid(newValue, minValue, maxValue);
-          }}
-        />
+        {props.constConfig === configKbIntro.defaultKbIntro ? (
+          <TextInputView
+            unit={unit}
+            min={minValue}
+            ideal={idealValue}
+            max={maxValue}
+            currentValue={inputValue}
+            onChangeValue={(newValue: string) => {
+              setInputValue(newValue);
+              checkValid(newValue, minValue, maxValue);
+            }}
+            useRulerPicker={true}
+            pickerOrientation="horizontal"
+          />
+        ) : (
+          <TextInput
+            placeholder={idealValue.toString()}
+            unit={unit}
+            value={inputValue}
+            setValue={(newValue: string) => {
+              setInputValue(newValue);
+              checkValid(newValue, minValue, maxValue);
+            }}
+          />
+        )}
 
         <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center justify-center w-[80%] h-[30vh] mt-10 gap-8 mb-10">
           <BMIResult w={weightInKg} h={heightInCm} />

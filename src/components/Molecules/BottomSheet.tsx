@@ -186,6 +186,11 @@ export function BottomSheet({
         role="dialog"
         aria-modal="true"
         aria-labelledby={title ? "bottom-sheet-title" : undefined}
+        onClick={() => {
+          if (draggable && !isExpanded) {
+            setIsExpanded(true);
+          }
+        }}
         onTouchStart={handleDragStart}
         onTouchMove={handleDragMove}
         onTouchEnd={handleDragEnd}

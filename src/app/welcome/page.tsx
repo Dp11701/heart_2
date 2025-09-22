@@ -15,13 +15,23 @@ import "@/styles/App.css";
 import DiscoveredScreen from "@/components/pages/DiscoveredScreen";
 import DoctorScreen from "@/components/pages/DoctorScreen";
 import { Utils } from "@/utils/Utils";
-import { FirebaseUtils } from "@/utils/FirebaseUtils";
+import { FirebaseUtils, remoteConfig } from "@/utils/FirebaseUtils";
 import { useRouter } from "next/navigation";
+import {
+  getValue,
+  activate,
+  fetchConfig,
+  getAll,
+} from "firebase/remote-config";
+import { fetchAndActivate } from "firebase/remote-config";
 
 function IntroScreen() {
   const router = useRouter();
   const [userInfo, setUserInfo] = useState<UserInfo>(UserInfo.parse({}));
   const [step, setStep] = useState(IntroStep.parse("WELCOME"));
+
+  const [iapIntro, setIapIntro] = useState<number>(0);
+  const [kbIntro, setKbIntro] = useState<number>(0);
 
   useEffect(() => {
     console.log(step, "step");
@@ -63,6 +73,34 @@ function IntroScreen() {
   //     setWelcomeConfig(Utils.shared.defaultWebsiteConfig);
   //   }
   // }
+
+  async function debugRemoteConfig() {
+    try {
+      const activated = await fetchAndActivate(remoteConfig);
+      console.log("fetchAndActivate result:", activated);
+
+      // Parse JSON-like params safely
+      const appConfigRaw = getValue(remoteConfig, "app_config").asString();
+      try {
+        const appConfig = JSON.parse(appConfigRaw);
+        console.log("app_config JSON:", appConfig);
+        const IAPIntro = appConfig.const.iap_intro;
+        const KBIntro = appConfig.const.kb_intro;
+        console.log("IAPIntro:", IAPIntro);
+        console.log("KBIntro:", KBIntro);
+        setIapIntro(IAPIntro);
+        setKbIntro(KBIntro);
+      } catch {
+        console.log("app_config (raw string):", appConfigRaw);
+      }
+    } catch (err) {
+      console.error("Remote Config debug error:", err);
+    }
+  }
+
+  useEffect(() => {
+    debugRemoteConfig();
+  }, []);
 
   const STEPS: IntroStep[] = [
     "WELCOME",
@@ -133,6 +171,7 @@ function IntroScreen() {
             key={step}
             config={welcomeConfig.SELECT_AGE}
             ageConfig={valueConfig.age}
+            constConfig={kbIntro}
             onContinue={(age) => {
               setUserInfo({ ...userInfo, ...{ age: age } });
               nextStep();
@@ -149,6 +188,7 @@ function IntroScreen() {
             config={welcomeConfig.SELECT_HEIGHT}
             heightConfig={valueConfig.height}
             userInfo={userInfo}
+            constConfig={kbIntro}
             onContinue={(value, unit) => {
               setUserInfo({
                 ...userInfo,
@@ -178,6 +218,7 @@ function IntroScreen() {
                 weight_unit: userInfo.weightUnit?.toString() ?? "null",
               });
             }}
+            constConfig={kbIntro}
           />
         );
 
