@@ -30,8 +30,8 @@ export function SelectHeightScreen(
   const [inputValue, setInputValue] = useState("");
 
   // Separate values for each unit
-  const [cmValue, setCmValue] = useState(150);
-  const [inchValue, setInchValue] = useState(59);
+  const [cmValue, setCmValue] = useState(0);
+  const [inchValue, setInchValue] = useState(0);
 
   function formatInchesToFtIn(totalInches: number): string {
     const feet = Math.floor(totalInches / 12);
