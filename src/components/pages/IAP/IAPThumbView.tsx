@@ -2,7 +2,10 @@ import { IAPConfig } from "../../models/IAPConfig";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 
-export function IAPThumbView(props: { config: IAPConfig }) {
+export function IAPThumbView(props: {
+  config: IAPConfig;
+  constConfig: number;
+}) {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -94,106 +97,138 @@ export function IAPThumbView(props: { config: IAPConfig }) {
   };
 
   return (
-    <div
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "calc(100vh - 70px - 220px)",
-        overflow: "hidden",
-        borderRadius: "0px",
-      }}
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
-    >
+    <div>
       {/* Video Track - Slide transition */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          transition: "transform 0.4s ease-in-out",
-          transform: `translateX(-${currentVideoIndex * 100}%)`,
-        }}
-      >
-        {videos.map((videoSrc, index) => (
+      {props.constConfig === 3 && (
+        <div
+          style={{
+            position: "relative",
+            width: "100%",
+            height: "calc(100vh - 70px - 220px)",
+            overflow: "hidden",
+            borderRadius: "0px",
+          }}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+        >
           <div
-            key={index}
             style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
               width: "100%",
               height: "100%",
-              flex: "0 0 100%",
+              display: "flex",
+              transition: "transform 0.4s ease-in-out",
+              transform: `translateX(-${currentVideoIndex * 100}%)`,
             }}
           >
-            <video
-              ref={(el) => {
-                videoRefs.current[index] = el;
-              }}
-              className="w-full h-full object-cover"
-              muted
-              playsInline
-            >
-              <source src={videoSrc} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            {videos.map((videoSrc, index) => (
+              <div
+                key={index}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  flex: "0 0 100%",
+                }}
+              >
+                <video
+                  ref={(el) => {
+                    videoRefs.current[index] = el;
+                  }}
+                  className="w-full h-full object-cover"
+                  muted
+                  playsInline
+                >
+                  <source src={videoSrc} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-
-      {/* Dots Indicator - Overlay on video */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 28,
-          left: "50%",
-          transform: "translateX(-50%)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: 8,
-          zIndex: 10,
-        }}
-      >
-        {videos.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => handleDotClick(index)}
+          <div
             style={{
-              width: 10,
-              height: 10,
-              borderRadius: "50%",
-              border: "none",
-              backgroundColor:
-                index === currentVideoIndex
-                  ? "#FF3D60"
-                  : "rgba(255, 255, 255, 0.5)",
-              cursor: "pointer",
-              transition: "background-color 0.3s ease",
-              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
+              position: "absolute",
+              bottom: 28,
+              left: "50%",
+              transform: "translateX(-50%)",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 8,
+              zIndex: 10,
             }}
-            aria-label={`Go to video ${index + 1}`}
-          />
-        ))}
-      </div>
+          >
+            {videos.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => handleDotClick(index)}
+                style={{
+                  width: 10,
+                  height: 10,
+                  borderRadius: "50%",
+                  border: "none",
+                  backgroundColor:
+                    index === currentVideoIndex
+                      ? "#FF3D60"
+                      : "rgba(255, 255, 255, 0.5)",
+                  cursor: "pointer",
+                  transition: "background-color 0.3s ease",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
+                }}
+                aria-label={`Go to video ${index + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+      )}
 
-      {/* <span
-        style={{
-          position: "absolute",
-          top: -60,
-          color: "black",
-          fontSize: 20,
-          fontWeight: "bold",
-          // zIndex: 1,
-          margin: 16,
-          textAlign: "center",
-          lineHeight: 1.5,
-        }}
-      >
-        {props.config.thumbTitle}
-      </span> */}
+      {props.constConfig === 2 && (
+        <div
+          style={{
+            position: "relative",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            aspectRatio: 754 / 686,
+            gap: 8,
+            marginTop: 60,
+          }}
+        >
+          <img
+            src={"/assets/icIAPThumbnail.png"}
+            alt={""}
+            style={{
+              position: "absolute",
+              width: "100%",
+              height: "auto",
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+            }}
+          />
+
+          <span
+            style={{
+              position: "absolute",
+              top: -60,
+              color: "black",
+              fontSize: 20,
+              fontWeight: "bold",
+              // zIndex: 1,
+              margin: 16,
+              textAlign: "center",
+              lineHeight: 1.5,
+            }}
+          >
+            {props.config.thumbTitle}
+          </span>
+        </div>
+      )}
     </div>
   );
 }
