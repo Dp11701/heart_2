@@ -124,7 +124,7 @@ export default function InAppPurchaseScreen() {
 
             {/* Hiển thị BottomSheet chỉ trên mobile; desktop hiển thị trực tiếp */}
             {isMobile ? (
-              <BottomSheet title="" minHeight="200px" draggable={true}>
+              <BottomSheet title="" minHeight="170px" draggable={true}>
                 <IAPPricesView config={config} constConfig={iapIntro} />
                 <IAPMillionsUsersLoveUsView config={config} />
                 <IAPGuaranteeView config={config} />
