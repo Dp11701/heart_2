@@ -1,6 +1,7 @@
 "use client";
 import "./globals.css";
 import { createTheme, MantineProvider } from "@mantine/core";
+import Script from "next/script";
 
 export default function RootLayout({
   children,
@@ -27,6 +28,22 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning>
+        <Script
+          id="appleid-js"
+          src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"
+          strategy="afterInteractive"
+          onLoad={() => {
+            try {
+              (window as any).AppleID?.auth?.init({
+                clientId: "com.pulse.heartkit.sid",
+                scope: "name email",
+                redirectURI: "https://icardiac.org/success",
+                usePopup: true,
+                response_mode: "form_post",
+              });
+            } catch {}
+          }}
+        />
         <MantineProvider theme={theme}>{children}</MantineProvider>
       </body>
     </html>
