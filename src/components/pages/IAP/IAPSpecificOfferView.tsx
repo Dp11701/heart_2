@@ -4,7 +4,10 @@ import Image from "next/image";
 import { IAPConfig } from "../../models/IAPConfig";
 import { useRouter } from "next/navigation";
 
-export function IAPSpecificOfferView(props: { config: IAPConfig }) {
+export function IAPSpecificOfferView(props: {
+  config: IAPConfig;
+  constConfig: number;
+}) {
   const [timeLeft, setTimeLeft] = useState(600); // 600 giây = 10 phút
 
   const router = useRouter();
@@ -38,32 +41,62 @@ export function IAPSpecificOfferView(props: { config: IAPConfig }) {
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#000000",
-        padding: "8px 16px",
+        padding: " 0px",
         gap: 8,
       }}
     >
-      <Image src={"/assets/icFlashSale.png"} alt={""} width={36} height={36} />
+      {props.constConfig === 2 && (
+        <Image
+          src={"/assets/icFlashSale.png"}
+          alt={""}
+          width={36}
+          height={36}
+        />
+      )}
+      {props.constConfig === 3 && (
+        <Image
+          src={"/assets/icFlashSale.png"}
+          alt={""}
+          width={24}
+          height={24}
+        />
+      )}
       <span
         style={{
           color: "white",
           fontWeight: 500,
         }}
       >
-        {props.config.yourSpecialOffer}
+        Your special offer is reserved for
       </span>
 
-      <span
-        style={{
-          fontWeight: 500,
-          fontSize: 24,
-          color: "white",
-          padding: "8px 16px",
-          borderRadius: 10,
-          border: "1px solid #EB9D71",
-        }}
-      >
-        {formatTime(timeLeft)}
-      </span>
+      {props.constConfig === 2 && (
+        <span
+          style={{
+            fontWeight: 500,
+            fontSize: 24,
+            color: "white",
+            padding: "8px 16px",
+            borderRadius: 10,
+            border: "1px solid #EB9D71",
+          }}
+        >
+          {formatTime(timeLeft)}
+        </span>
+      )}
+      {props.constConfig === 3 && (
+        <span
+          style={{
+            fontWeight: 500,
+            fontSize: 24,
+            color: "white",
+            padding: "8px 0px",
+            borderRadius: 10,
+          }}
+        >
+          {formatTime(timeLeft)}
+        </span>
+      )}
     </div>
   );
 }

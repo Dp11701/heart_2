@@ -110,7 +110,7 @@ export default function InAppPurchaseScreen() {
       >
         {iapIntro === 2 && (
           <div>
-            <IAPSpecificOfferView config={config} />
+            <IAPSpecificOfferView config={config} constConfig={iapIntro} />
             <IAPThumbView config={config} constConfig={iapIntro} />
             <IAPPricesView config={config} constConfig={iapIntro} />
             <IAPMillionsUsersLoveUsView config={config} />
@@ -119,7 +119,7 @@ export default function InAppPurchaseScreen() {
         )}
         {iapIntro === 3 && (
           <div>
-            <IAPSpecificOfferView config={config} />
+            <IAPSpecificOfferView config={config} constConfig={iapIntro} />
             <IAPThumbView config={config} constConfig={iapIntro} />
 
             {/* Hiển thị BottomSheet chỉ trên mobile; desktop hiển thị trực tiếp */}
