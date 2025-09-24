@@ -64,7 +64,10 @@ function IAPPackView(props: IAPPricesViewProps) {
   );
 }
 
-export function IAPPricesView(props: { config: IAPConfig }) {
+export function IAPPricesView(props: {
+  config: IAPConfig;
+  constConfig: number;
+}) {
   const [selectedPackIndex, setSelectedPackIndex] = useState(1);
 
   return (
@@ -140,15 +143,23 @@ export function IAPPricesView(props: { config: IAPConfig }) {
         >
           Unlock Your Personalized Heart Health Plan
         </span>
-        <Typography className="text-center text-[#59617A] font-[400] text-[16px] leading-[24px]">
-          Start your 3-day free trial today and gain full access to heart health
-          insights.
-        </Typography>
+        {props.constConfig === 2 && (
+          <Typography className="text-center text-[#59617A] font-[400] text-[16px] leading-[24px]">
+            Start your 3-day free trial today and gain full access to heart
+            health insights.
+          </Typography>
+        )}
       </div>
       <IAPPaymentButton
         config={props.config}
         selectedPackIndex={selectedPackIndex}
       />
+      {props.constConfig === 3 && (
+        <Typography className="text-center text-[#59617A] font-[400] text-[16px] leading-[24px]">
+          Start your 3-day free trial today and gain full access to heart health
+          insights.
+        </Typography>
+      )}
       <Typography className="text-center text-[#4E5660] font-[400] text-[12px] leading-[24px]">
         Only $6.99/week after trial.
       </Typography>

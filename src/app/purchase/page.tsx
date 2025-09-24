@@ -112,7 +112,7 @@ export default function InAppPurchaseScreen() {
           <div>
             <IAPSpecificOfferView config={config} />
             <IAPThumbView config={config} constConfig={iapIntro} />
-            <IAPPricesView config={config} />
+            <IAPPricesView config={config} constConfig={iapIntro} />
             <IAPMillionsUsersLoveUsView config={config} />
             <IAPGuaranteeView config={config} />
           </div>
@@ -124,14 +124,14 @@ export default function InAppPurchaseScreen() {
 
             {/* Hiển thị BottomSheet chỉ trên mobile; desktop hiển thị trực tiếp */}
             {isMobile ? (
-              <BottomSheet title="" minHeight="220px" draggable={true}>
-                <IAPPricesView config={config} />
+              <BottomSheet title="" minHeight="200px" draggable={true}>
+                <IAPPricesView config={config} constConfig={iapIntro} />
                 <IAPMillionsUsersLoveUsView config={config} />
                 <IAPGuaranteeView config={config} />
               </BottomSheet>
             ) : (
               <>
-                <IAPPricesView config={config} />
+                <IAPPricesView config={config} constConfig={iapIntro} />
                 <IAPMillionsUsersLoveUsView config={config} />
                 <IAPGuaranteeView config={config} />
               </>
