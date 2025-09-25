@@ -49,17 +49,22 @@ export default function PaymentSuccess() {
   async function switchConfigs() {
     if (typeof window === "undefined") return;
 
-    const locale = localStorage.getItem("languageCode");
+    const locale =
+      typeof window !== "undefined"
+        ? localStorage.getItem("languageCode")
+        : null;
     if (locale) {
       try {
         const response = await Utils.shared.resultConfig(locale);
         setConfig(response);
       } catch {
-        localStorage.removeItem("languageCode");
+        if (typeof window !== "undefined")
+          localStorage.removeItem("languageCode");
         setConfig(Utils.shared.defaultResultConfig);
       }
     } else {
-      localStorage.removeItem("languageCode");
+      if (typeof window !== "undefined")
+        localStorage.removeItem("languageCode");
       setConfig(Utils.shared.defaultResultConfig);
     }
   }
@@ -79,7 +84,10 @@ export default function PaymentSuccess() {
             bundle_id: "com.pulse.heartkit",
             email_user_input: userInfo.email,
             raw_data: userInfo,
-            session_id: localStorage.getItem("sessionId") || "",
+            session_id:
+              typeof window !== "undefined"
+                ? localStorage.getItem("sessionId") || ""
+                : "",
             type: "apple",
             fbc: getCookie("_fbc") || "",
             fbp: getCookie("_fbp") || "",
@@ -106,7 +114,8 @@ export default function PaymentSuccess() {
       if (data.authorization) {
         const code = data.authorization.code;
         const idToken = data.authorization.id_token;
-        localStorage.setItem("authorization_code", code);
+        if (typeof window !== "undefined")
+          localStorage.setItem("authorization_code", code);
         router.push("/success");
       } else {
       }
